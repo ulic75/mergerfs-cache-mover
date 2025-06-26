@@ -52,9 +52,8 @@ def main():
     notification_mgr = NotificationManager(config)
     cleanup_mgr = CleanupManager(config, args.dry_run)
 
-    if config['Settings'].get('AUTO_UPDATE', False):
-        if not auto_update(config):
-            logger.warning("Auto-update failed or was skipped")
+    if config['Settings'].get('AUTO_UPDATE', False) or not auto_update(config):
+        logger.warning("Auto-update failed or was skipped")
 
     try:
         current_usage, needs_cleanup = cleanup_mgr.check_usage()
